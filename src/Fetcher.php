@@ -23,9 +23,65 @@ class Fetcher {
     protected $text;
 
     /**
-     * @var Array Les extensions valides des images.
+     * @var array Les extensions valides des images.
      */
     protected $image_extensions = ['png', 'jpg', 'jpeg', 'gif'];
+
+    /**
+     * @var array Un tableau des méta-données à récupérer dans l'ordre d'importance. (du - au +)
+     */
+    protected $meta = [
+        [
+            'name' => 'description',
+            'key'  => 'name',
+            'tag'  => 'description'
+        ],
+        [
+            'name' => 'description',
+            'key'  => 'property',
+            'tag'  => 'og:description'
+        ],
+        [
+            'name' => 'description',
+            'key'  => 'property',
+            'tag'  => 'pinterestapp:about'
+        ],
+        [
+            'name' => 'image',
+            'key'  => 'property',
+            'tag'  => 'og:image'
+        ],
+        [
+            'name' => 'image',
+            'key'  => 'itemprop',
+            'tag'  => 'image'
+        ],
+        [
+            'name' => 'title',
+            'key'  => 'property',
+            'tag'  => 'og:title'
+        ],
+        [
+            'name' => 'video',
+            'key'  => 'property',
+            'tag'  => 'og:video'
+        ],
+        [
+            'name' => 'video_type',
+            'key'  => 'property',
+            'tag'  => 'og:video:type'
+        ],
+        [
+            'name' => 'video_width',
+            'key'  => 'property',
+            'tag'  => 'og:video:width'
+        ],
+        [
+            'name' => 'video_height',
+            'key'  => 'property',
+            'tag'  => 'og:video:height'
+        ]
+    ];
 
     /**
      * @param Text $text L'outil de traduction.
@@ -101,18 +157,12 @@ class Fetcher {
         }
 
         // Si on arrive ici c'est que tout s'est bien passé.
-        $result = [
-            'error'  => false,
-            'status' => 200,
-            'data'   => [
-                'title'  => $page_title,
-                'text'   => $body,
-                'images' => $images,
-                'metas'  => $metas
-            ]
+        return [
+            'title'  => $page_title,
+            'text'   => $body,
+            'images' => $images,
+            'metas'  => $metas
         ];
-
-        return $result;
 
     }
 
@@ -182,7 +232,7 @@ class Fetcher {
 
         $path_parts = pathinfo($filename);
 
-        return $path_parts['extension'];
+        return array_key_exists('extension', $path_parts) ? $path_parts['extension'] : '';
     }
 
 }
