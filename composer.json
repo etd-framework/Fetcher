@@ -1,0 +1,26 @@
+{
+    "name": "etdsolutions/fetcher",
+    "type": "etd-package",
+    "minimum-stability": "dev",
+    "description": "Package Fetcher du Framework ETD",
+    "homepage": "https://github.com/etd-framework/fetcher",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jean-Baptiste Alleaume",
+            "email": "jb.alleaume@etd-solutions.com",
+            "homepage": "http://alleau.me",
+            "role": "Manager"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "sunra/php-simple-html-dom-parser": "~1.5",
+        "joomla/uri": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "EtdSolutions\\Fetcher\\": "src/"
+        }
+    }
+}
